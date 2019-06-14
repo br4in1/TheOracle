@@ -1,0 +1,36 @@
+{{ form_start(form) }}
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text"><i class="icon-pencil"></i></span>
+        </div>
+        {{ form_widget(form.title) }}
+        {{ form_errors(form.title) }}
+    </div>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text"><i class="icon-question"></i></span>
+        </div>
+        {{ form_widget(form.category) }}
+        {{ form_errors(form.category) }}
+    </div>
+
+    <div class="input-group mb-4">
+        <div class="input-group-prepend">
+            <span class="input-group-text"><i class="icon-picture"></i></span>
+        </div>
+        {{ form_widget(form.image) }}
+        {{ form_errors(form.image) }}
+    </div>
+
+    <div class="input-group mb-4">
+        <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-eur"></i></span>
+        </div>
+        {{ form_widget(form.price) }}
+        {{ form_errors(form.price) }}
+    </div>
+    <button class="btn btn-block col-6 btn-success">{{ button_label|default('Save') }}</button>
+
+{{ form_end(form) }}

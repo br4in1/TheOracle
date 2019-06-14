@@ -1,0 +1,161 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+    <div class="row">
+        <div class="col-sm-6 col-lg-4">
+            <div class="card text-white bg-primary">
+                <div class="card-body pb-0">
+                    <h1 class="mb-0">{{ render(controller("App\\Controller\\DefaultController::getTotalServed",
+                            { 'canteen': "Lehel" }))|number_format(2, '.', ',') }}</h1>
+                    <p>Happy served clients</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-4">
+            <div class="card text-white bg-success">
+                <div class="card-body pb-0">
+                    <h1 class="mb-0">{{ render(controller("App\\Controller\\DefaultController::getConfirmedVisitors",
+                            { 'canteen': "Lehel" })) }}</h1>
+                    <p>Confirmed guests for today's lunch</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-4">
+            <div class="card text-white bg-danger">
+                <div class="card-body pb-0">
+                    <h1 class="mb-0">€{{ render(controller("App\\Controller\\DefaultController::getTotalRevenue",
+                            { 'canteen': "Lehel" })) }}</h1>
+                    <p>of Total Revenue</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-5">
+                    <h4 class="card-title mb-0">Number Of Guests</h4>
+                </div>
+                <!--/.col-->
+                <div class="col-sm-7 d-none d-md-block">
+                    <div class="btn-group btn-group-toggle float-right mr-3" data-toggle="buttons">
+                        <label class="btn btn-outline-secondary active" onclick="plot_dnog(1)">
+                            <input type="radio" name="options_dnog" id="option1" autocomplete="off"> Day
+                        </label>
+                        <label class="btn btn-outline-secondary" onclick="plot_dnog(2)">
+                            <input type="radio" name="options_dnog" id="option2" autocomplete="off"> Month
+                        </label>
+                        <label class="btn btn-outline-secondary" onclick="plot_dnog(3)">
+                            <input type="radio" name="options_dnog" id="option3" autocomplete="off"> Year
+                        </label>
+                    </div>
+                </div>
+                <!--/.col-->
+            </div>
+            <!--/.row-->
+            <div class="chart-wrapper" id="dnog_container" style="height:500px;margin-top:40px;">
+                <canvas id="number_of_guests" class="chart" height="500"></canvas>
+            </div>
+        </div>
+    </div>
+    <!--/.card-->
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    Bar Chart
+                </div>
+                <div class="card-body">
+                    <div class="chart-wrapper" id="dnog_container2">
+                        <canvas id="dnog_by_monthName"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    Bar Chart
+                </div>
+                <div class="card-body">
+                    <div class="chart-wrapper" id="dnog_container3">
+                        <canvas id="dnog_by_DayOfWeek"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-header">
+                    Customers Feedbacks Polarity
+                </div>
+                <div class="card-body">
+                    <div class="chart-wrapper" id="polarity_container1">
+                        <canvas id="polarity"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/.col-->
+
+        <div class="col-md-7">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-comment"></i> Comments
+                </div>
+                <div class="card-body">
+                    {% if items|length != 0 %}
+                        <table class="table table-striped table-bordered datatable">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Date</th>
+                                    <th>Canteen</th>
+                                    <th>Polarity</th>
+                                    <th>Comment</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in items %}
+                                <tr>
+                                    <td>{{ item.user.username }}</td>
+                                    <td>{{ item.date|date("Y-m-d") }}</td>
+                                    <td>{{ item.canteen }}</td>
+                                    <td>
+                                        {% if item.polarity == "Negative" %}
+                                            <span class="badge badge-danger">{{ item.polarity }}</span>
+                                        {% elseif item.polarity == "Positive " %}
+                                            <span class="badge badge-success">{{ item.polarity }}</span>
+                                        {% else %}
+                                            <span class="badge badge-warning">{{ item.polarity }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ item.content }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <div class="alert alert-danger" role="alert">
+                            There's no feedbacks yet !
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!--/.col-->
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/views/lehel_charts.js') }}"></script>
+{% endblock %}

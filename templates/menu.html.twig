@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            {% for item in menu %}
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <h6 class="card-title clearfix mb-0">{{ item.item.title }}</h6>
+                                {% if item.item.category == "Rot" %}
+                                    <span class="badge badge-danger">€{{ item.item.price }}</span>
+                                {% elseif item.item.category == "Grun" %}
+                                    <span class="badge badge-success">€{{ item.item.price }}</span>
+                                {% else %}
+                                    <span class="badge badge-warning">€{{ item.item.price }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <img width = "150px" src="{{ asset('uploads/items/' ~ item.item.image) }}">
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="container">
+        <div class="alert alert-warning">
+            {% if appoin == true %}
+                <h3>You already reserved your spot for today's lunch.</h3><a class="btn btn-danger" href = "{{ path('resertvation', {'type': 'cancel'}) }}">Cancel</a>
+            {% else %}
+                <h3>Did today's lunch get your appetite ?</h3><a class="btn btn-success" href = "{{ path('resertvation', {'type': 'apply'}) }}">I'm going</a>
+            {% endif %}
+        </div>
+
+        <div class="alert alert-success">
+            <h3>Give the chef any feedback you have !</h3>
+            <form action="{{ path('post_comment') }}" method="post">
+                <textarea id="textarea-input" name="content" rows="9" class="form-control" placeholder="Content.."></textarea>
+                <input type="submit" value="Post" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
+{% endblock %}
+

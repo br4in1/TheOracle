@@ -1,0 +1,103 @@
+index:
+    path: /
+    controller: App\Controller\DefaultController::index
+
+items:
+    path: /item/all
+    controller: App\Controller\DefaultController::itemsView
+
+lehel_dashboard:
+    path:   /dashboards/lehel
+    controller: App\Controller\DefaultController::lehelDashboard
+
+giesing_dashboard:
+    path:   /dashboards/giesing
+    controller: App\Controller\DefaultController::giesingDashboard
+
+get_Lehel_DNOG_ByMonth:
+    path:   /dashboards/lehel/bymonth
+    controller: App\Controller\DefaultController::getGuestsByMonthLehel
+    options:
+        expose: true
+
+get_Lehel_DNOG_ByDayOfWeek:
+    path:   /dashboards/lehel/byday
+    controller: App\Controller\DefaultController::getGuestsByDayOfWeekLehel
+    options:
+        expose: true
+
+get_Lehel_DNOG:
+    path:   /dashboards/lehel/{type}
+    controller: App\Controller\DefaultController::getLehelDNOG
+    defaults:
+      type: "daily"
+    options:
+        expose: true
+
+get_Giesing_DNOG_ByMonth:
+    path:   /dashboards/giesing/bymonth
+    controller: App\Controller\DefaultController::getGuestsByMonthGiesing
+    options:
+        expose: true
+
+get_Giesing_DNOG_ByDayOfWeek:
+    path:   /dashboards/giesing/byday
+    controller: App\Controller\DefaultController::getGuestsByDayOfWeekGiesing
+    options:
+        expose: true
+
+get_Giesing_DNOG:
+    path:   /dashboards/giesing/{type}
+    controller: App\Controller\DefaultController::getGiesingDNOG
+    defaults:
+        type: "daily"
+    options:
+        expose: true
+
+lehel_predictions:
+    path:   /getLehelpredictions
+    controller: App\Controller\DefaultController::getLehelPredictions
+    options:
+        expose: true
+
+giesing_predictions:
+    path:   /getGiesingpredictions
+    controller: App\Controller\DefaultController::getGiesingPredictions
+    options:
+        expose: true
+
+lehel_predictions_page:
+    path:   /predictions/lehel/
+    controller: App\Controller\DefaultController::getLehelPredictionsPage
+
+giesing_predictions_page:
+    path:   /predictions/giesing
+    controller: App\Controller\DefaultController::getGiesingPredictionsPage
+
+todays_menu:
+    path:   /menu
+    controller: App\Controller\DefaultController::TodaysMenu
+
+resertvation:
+    path:   /reservations/{type}
+    controller: App\Controller\DefaultController::reservation
+
+make_new_predictions:
+    path:   /predict
+    controller: App\Controller\DefaultController::Predict
+
+post_comment:
+    path:   /post_comment
+    controller: App\Controller\DefaultController::PostComment
+
+get_Giesing_Polarity:
+    path:   /getGiesingpolarity
+    controller: App\Controller\DefaultController::getGiesingPolarity
+    options:
+        expose: true
+
+get_Lehel_Polarity:
+    path:   /getLehelpolarity
+    controller: App\Controller\DefaultController::geLehelPolarity
+    options:
+        expose: true

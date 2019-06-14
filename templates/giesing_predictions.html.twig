@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <!-- Plugins and scripts required by this views -->
+    <script src="{{ asset('vendors/js/moment.min.js') }}"></script>
+    <script src="{{ asset('vendors/js/fullcalendar.min.js') }}"></script>
+    <script src="{{ asset('vendors/js/gcal.min.js') }}"></script>
+
+    <!-- Custom scripts required by this view -->
+    <script src="{{ asset('js/views/calendar_giesing.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('vendors/css/fullcalendar.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <i class="icon-calendar"></i> Forecasting the number of guests for Giesing's Canteen
+        </div>
+        <div class="card-body">
+            <div id="calendar"></div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,379 @@
+<!--
+ * CoreUI Pro - Bootstrap 4 Admin Template
+ * @version v1.0.8
+ * @link http://coreui.io/pro/
+ * Copyright (c) 2018 creativeLabs Łukasz Holeczek
+ * @license http://coreui.io/pro/license/
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keyword" content=",">
+    <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}">
+    <title>The Oracle - {% block title %}Home Page{% endblock %}</title>
+
+    {% block stylesheets %}
+        <!-- Icons -->
+        <link href="{{ asset('vendors/css/flag-icon.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('vendors/css/font-awesome.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('vendors/css/simple-line-icons.min.css') }}" rel="stylesheet">
+
+        <!-- Main styles for this application -->
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
+        <!-- Styles required by this views -->
+        <link href="{{ asset('vendors/css/daterangepicker.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('vendors/css/gauge.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('vendors/css/toastr.min.css') }}" rel="stylesheet">
+        <style>
+            #lehel{
+                opacity: 0%;
+            }
+            #lehel:hover{
+                background-color: gray;
+            }
+        </style>
+    {% endblock %}
+</head>
+
+<!-- BODY options, add following classes to body to change options
+
+// Header options
+1. '.header-fixed'					- Fixed Header
+
+// Brand options
+1. '.brand-minimized'       - Minimized brand (Only symbol)
+
+// Sidebar options
+1. '.sidebar-fixed'					- Fixed Sidebar
+2. '.sidebar-hidden'				- Hidden Sidebar
+3. '.sidebar-off-canvas'		- Off Canvas Sidebar
+4. '.sidebar-minimized'			- Minimized Sidebar (Only icons)
+5. '.sidebar-compact'			  - Compact Sidebar
+
+// Aside options
+1. '.aside-menu-fixed'			- Fixed Aside Menu
+2. '.aside-menu-hidden'			- Hidden Aside Menu
+3. '.aside-menu-off-canvas'	- Off Canvas Aside Menu
+
+// Breadcrumb options
+1. '.breadcrumb-fixed'			- Fixed Breadcrumb
+
+// Footer options
+1. '.footer-fixed'					- Fixed footer
+
+-->
+
+<body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
+<header class="app-header navbar">
+    <button class="navbar-toggler mobile-sidebar-toggler d-lg-none" type="button">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="{{ path('index') }}"></a>
+    <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <ul class="nav navbar-nav ml-auto">
+
+
+
+        <li class="nav-item dropdown">
+            <a class="nav-link nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                <img src="{{ asset('img/avatars/6.jpg') }}" class="img-avatar" alt="admin@bootstrapmaster.com">
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+                <div class="dropdown-header text-center">
+                    <strong>Account</strong>
+                </div>
+                <a class="dropdown-item" href="{{ path('fos_user_security_logout') }}"><i class="fa fa-lock"></i> Logout</a>
+            </div>
+        </li>
+
+    </ul>
+</header>
+<div class="app-body">
+    <div class="sidebar">
+        <nav class="sidebar-nav">
+            <ul class="nav">
+                {% if is_granted("ROLE_ADMIN") %}
+                    <li class="nav-item nav-dropdown">
+                        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-speedometer"></i> Dashboards</a>
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('lehel_dashboard') }}"><i class="icon-puzzle"></i> Lehel</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('giesing_dashboard') }}"><i class="icon-puzzle"></i> Giesing</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item nav-dropdown">
+                        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-eyeglass"></i> Predictions</a>
+                        <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('lehel_predictions_page') }}"><i class="icon-puzzle"></i> Lehel</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('giesing_predictions_page') }}"><i class="icon-puzzle"></i> Giesing</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-title">
+                        Manage Your Items
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ path('items') }}" class="nav-link"><i class="icon-eye"></i> View Items</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ path('item_new') }}" class="nav-link"><i class="icon-pencil"></i> New Item</a>
+                    </li>
+                {% else %}
+
+                    <li class="nav-item">
+                        <a href="{{ path('todays_menu') }}" class="nav-link"><i class="icon-menu"></i> Today's Menu</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+        <button class="sidebar-minimizer brand-minimizer" type="button"></button>
+    </div>
+    <!-- Main content -->
+    <main class="main">
+
+        <!-- Breadcrumb -->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">Home</li>
+            <li class="breadcrumb-item"><a href="#">Admin</a></li>
+            <li class="breadcrumb-item active">Dashboard</li>
+            <!-- Breadcrumb Menu-->
+            <li class="breadcrumb-menu d-md-down-none">
+                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                    <a class="btn" href="#"><i class="icon-speech"></i></a>
+                    <a class="btn" href="./"><i class="icon-graph"></i> &nbsp;Dashboard</a>
+                    <a class="btn" href="#"><i class="icon-settings"></i> &nbsp;Settings</a>
+                </div>
+            </li>
+        </ol>
+
+        <div class="container-fluid">
+
+            <div class="animated fadeIn">
+                {% block body %}{% endblock %}
+                <!--/.row-->
+            </div>
+
+        </div>
+        <!-- /.conainer-fluid -->
+    </main>
+
+    <aside class="aside-menu">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#timeline" role="tab"><i class="icon-list"></i></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#messages" role="tab"><i class="icon-speech"></i></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#settings" role="tab"><i class="icon-settings"></i></a>
+            </li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+
+            <div class="tab-pane p-3" id="messages" role="tabpanel">
+                <div class="message">
+                    <div class="py-3 pb-5 mr-3 float-left">
+                        <div class="avatar">
+                            <img src="img/avatars/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                            <span class="avatar-status badge-success"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <small class="text-muted">Lukasz Holeczek</small>
+                        <small class="text-muted float-right mt-1">1:52 PM</small>
+                    </div>
+                    <div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
+                    <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
+                </div>
+                <hr>
+                <div class="message">
+                    <div class="py-3 pb-5 mr-3 float-left">
+                        <div class="avatar">
+                            <img src="img/avatars/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                            <span class="avatar-status badge-success"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <small class="text-muted">Lukasz Holeczek</small>
+                        <small class="text-muted float-right mt-1">1:52 PM</small>
+                    </div>
+                    <div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
+                    <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
+                </div>
+                <hr>
+                <div class="message">
+                    <div class="py-3 pb-5 mr-3 float-left">
+                        <div class="avatar">
+                            <img src="img/avatars/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                            <span class="avatar-status badge-success"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <small class="text-muted">Lukasz Holeczek</small>
+                        <small class="text-muted float-right mt-1">1:52 PM</small>
+                    </div>
+                    <div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
+                    <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
+                </div>
+                <hr>
+                <div class="message">
+                    <div class="py-3 pb-5 mr-3 float-left">
+                        <div class="avatar">
+                            <img src="img/avatars/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                            <span class="avatar-status badge-success"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <small class="text-muted">Lukasz Holeczek</small>
+                        <small class="text-muted float-right mt-1">1:52 PM</small>
+                    </div>
+                    <div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
+                    <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
+                </div>
+                <hr>
+                <div class="message">
+                    <div class="py-3 pb-5 mr-3 float-left">
+                        <div class="avatar">
+                            <img src="img/avatars/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                            <span class="avatar-status badge-success"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <small class="text-muted">Lukasz Holeczek</small>
+                        <small class="text-muted float-right mt-1">1:52 PM</small>
+                    </div>
+                    <div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
+                    <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
+                </div>
+            </div>
+            <div class="tab-pane p-3" id="settings" role="tabpanel">
+                <h6>Settings</h6>
+                <div class="aside-options">
+                    <div class="clearfix mt-4">
+                        <small><b>Option 1</b></small>
+                        <label class="switch switch-text switch-pill switch-success switch-sm float-right">
+                            <input type="checkbox" class="switch-input" checked="">
+                            <span class="switch-label" data-on="On" data-off="Off"></span>
+                            <span class="switch-handle"></span>
+                        </label>
+                    </div>
+                    <div>
+                        <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small>
+                    </div>
+                </div>
+                <div class="aside-options">
+                    <div class="clearfix mt-3">
+                        <small><b>Option 2</b></small>
+                        <label class="switch switch-text switch-pill switch-success switch-sm float-right">
+                            <input type="checkbox" class="switch-input">
+                            <span class="switch-label" data-on="On" data-off="Off"></span>
+                            <span class="switch-handle"></span>
+                        </label>
+                    </div>
+                    <div>
+                        <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small>
+                    </div>
+                </div>
+                <div class="aside-options">
+                    <div class="clearfix mt-3">
+                        <small><b>Option 3</b></small>
+                        <label class="switch switch-text switch-pill switch-success switch-sm float-right">
+                            <input type="checkbox" class="switch-input">
+                            <span class="switch-label" data-on="On" data-off="Off"></span>
+                            <span class="switch-handle"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="aside-options">
+                    <div class="clearfix mt-3">
+                        <small><b>Option 4</b></small>
+                        <label class="switch switch-text switch-pill switch-success switch-sm float-right">
+                            <input type="checkbox" class="switch-input" checked="">
+                            <span class="switch-label" data-on="On" data-off="Off"></span>
+                            <span class="switch-handle"></span>
+                        </label>
+                    </div>
+                </div>
+                <hr>
+                <h6>System Utilization</h6>
+                <div class="text-uppercase mb-1 mt-4">
+                    <small><b>CPU Usage</b></small>
+                </div>
+                <div class="progress progress-xs">
+                    <div class="progress-bar bg-info" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <small class="text-muted">348 Processes. 1/4 Cores.</small>
+                <div class="text-uppercase mb-1 mt-2">
+                    <small><b>Memory Usage</b></small>
+                </div>
+                <div class="progress progress-xs">
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <small class="text-muted">11444GB/16384MB</small>
+                <div class="text-uppercase mb-1 mt-2">
+                    <small><b>SSD 1 Usage</b></small>
+                </div>
+                <div class="progress progress-xs">
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <small class="text-muted">243GB/256GB</small>
+                <div class="text-uppercase mb-1 mt-2">
+                    <small><b>SSD 2 Usage</b></small>
+                </div>
+                <div class="progress progress-xs">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <small class="text-muted">25GB/256GB</small>
+            </div>
+        </div>
+    </aside>
+
+</div>
+<footer class="app-footer">
+    <span><a href="{{ path('index') }}">The Oracle</a> © 2019 DataNove.</span>
+    <span class="ml-auto">Powered by <a href="{{ path('index') }}">DataNova</a></span>
+</footer>
+
+{% block javascripts %}
+    <!-- Bootstrap and necessary plugins -->
+    <script src="{{ asset('vendors/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendors/js/popper.min.js') }}"></script>
+    <script src="{{ asset('vendors/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('vendors/js/pace.min.js') }}"></script>
+
+    <!-- Plugins and scripts required by all views -->
+    <script src="{{ asset('vendors/js/Chart.min.js') }}"></script>
+
+    <!-- CoreUI Pro main scripts -->
+
+    <script src="{{ asset('js/app.js') }}"></script>
+
+    <!-- Plugins and scripts required by this views -->
+    <script src="{{ asset('vendors/js/toastr.min.js') }}"></script>
+    <script src="{{ asset('vendors/js/gauge.min.js') }}"></script>
+    <script src="{{ asset('vendors/js/moment.min.js') }}"></script>
+    <script src="{{ asset('vendors/js/daterangepicker.min.js') }}"></script>
+
+    <!-- Custom scripts required by this view -->
+    <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+{% endblock %}
+
+</body>
+</html>

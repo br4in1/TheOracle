@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Item{% endblock %}
+
+{% block body %}
+    <div class="card-group">
+        <div class="card p-4 col-6">
+            <div class="card-body">
+                <h1>Add a new item</h1>
+                <p class="text-muted">Create a new item</p>
+                {{ include('item/_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
